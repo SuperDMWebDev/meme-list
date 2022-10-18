@@ -1,8 +1,9 @@
 import "./App.css";
 import { Button, Row, Col } from "antd";
 import { useEffect, useState } from "react";
-import Imagememe from "./Imagememe";
+import Imagememe from "./Imagememe.js";
 const api_meme = "https://api.imgflip.com/get_memes";
+
 function App() {
   const [memeArr, setMemeArr] = useState([]);
   const loadImage = (event) => {
