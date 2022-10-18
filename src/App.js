@@ -1,23 +1,58 @@
-import logo from './logo.svg';
-import './App.css';
-
+import logo from "./logo.svg";
+import "./App.css";
+import { Button, Row, Col } from "antd";
+import { useEffect, useState } from "react";
+import ImageMeme from "./ImageMeme";
+const api_meme = "https://api.imgflip.com/get_memes";
 function App() {
+  const [memeArr, setMemeArr] = useState([]);
+  const loadImage = (event) => {
+    event.preventDefault();
+    getImage();
+  };
+  const getImage = () => {
+    fetch(api_meme)
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        console.log("Data", data);
+        setMemeArr(data.data.memes);
+      })
+      .catch((err) => {
+        console.log("err", err);
+      });
+  };
+  useEffect(() => {
+    console.log("call api");
+    getImage();
+  }, []);
+  useEffect(() => {
+    console.log("memeArr", memeArr.length);
+  }, [memeArr]);
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h3 className="app_header">Meme app</h3>
+      <Button type="primary" onClick={(event) => loadImage(event)}>
+        Load images
+      </Button>
+      <Row
+        className="image_container"
+        gutter={[{ xs: 8, sm: 16, md: 24, lg: 32 }, 16]}
+      >
+        {memeArr.length !== 0 &&
+          memeArr.map((item, index) => {
+            return (
+              <Col
+                span={6}
+                className="gutter-row image-item"
+                key={`image-${index}`}
+              >
+                <ImageMeme src={item.url} alt={item.name} />
+              </Col>
+            );
+          })}
+      </Row>
     </div>
   );
 }
