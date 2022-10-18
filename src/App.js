@@ -1,7 +1,7 @@
 import "./App.css";
 import { Button, Row, Col } from "antd";
 import { useEffect, useState } from "react";
-import ImageMeme from "./ImageMeme";
+import Imagememe from "./Imagememe";
 const api_meme = "https://api.imgflip.com/get_memes";
 function App() {
   const [memeArr, setMemeArr] = useState([]);
@@ -47,7 +47,7 @@ function App() {
                 className="gutter-row image-item"
                 key={`image-${index}`}
               >
-                <ImageMeme src={item.url} alt={item.name} />
+                <Imagememe src={item.url} alt={item.name} />
               </Col>
             );
           })}
