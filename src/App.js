@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import { Button, Row, Col } from "antd";
 import { useEffect, useState } from "react";
